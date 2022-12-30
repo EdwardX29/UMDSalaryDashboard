@@ -8,15 +8,13 @@ const StaffSalaryPage:NextPage = () => {
     const router = useRouter()
     const employeeName = String(router.query.name)
 
-    const {data: salaryData, refetch: salaryDataRefetch} = 
+    const {data: salaryData} = 
         trpc.salary.getStaffMembersSalaries
         .useQuery({employeeName: String(employeeName)})
 
     return (
-        <main>
-            <h1>{employeeName}</h1>
-
-
+        <main className="p-8">
+            <h1 className="font-semibold text-3xl">{employeeName}</h1>
             {
                 salaryData && salaryData.map((salary) => (
                     <SalaryCard {...salary} />
@@ -45,29 +43,25 @@ interface salaryCardProps {
 const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division, department, title, employeeName}) => {
     return (
         <div key={id} 
-        className="flex flex-row border-t-2 border-gray-200 my-2 items-center">
+        className="flex flex-row border-t-2 border-gray-200 my-2 items-center py-2">
             <div>
                 <h3 className="font-semibold text-3xl">{year}</h3>
-                <ul>
-                    <li>{division}</li>
+                <ul className="list-disc list-inside">
+                    <li className="">{title}</li>
+                    <li className="">{division}</li>
                     <li>{department}</li>
-                    <li>{title}</li>
                 </ul>
             </div>
             
-            <span className="text-red-600 text-4xl font-bold text-left">
+            <span className="text-red-600 text-5xl font-bold text-left font-sans">
                 {
                     salaryAmount.toString().includes(".") ?
                    `$${salaryAmount.toLocaleString("en-US")}` :
                    `$${salaryAmount.toLocaleString("en-US") + ".00"}`
-
                 }
-
             </span>
         </div>
-        
     )
-
 }
 
 export default StaffSalaryPage
