@@ -15,7 +15,7 @@ const StaffSalaryPage:NextPage = () => {
     return (
         <main className="p-8">
             <div>
-            <h1 className="font-semibold text-3xl">{employeeName}</h1>
+            <h1 className="font-semibold text-4xl">{employeeName}</h1>
 
             <h2 className="font-semibold text-2xl">Salary Visualization</h2>
 
@@ -23,14 +23,12 @@ const StaffSalaryPage:NextPage = () => {
             {
 
                 salaryData && salaryData.map((salary) => (
-                    <div className="w-1/2">
+                    <div className="flex flex-col">
                         <SalaryCard {...salary} />
                     </div>
                 ))
             }
             </div>
-
-
         </main>
 
     )
@@ -54,17 +52,17 @@ interface salaryCardProps {
 const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division, department, title, employeeName}) => {
     return (
         <div key={id} 
-        className="flex flex-row border-t-2 border-gray-300 my-2 items-center py-2">
+        className="flex flex-row border-t border-gray-300 my-2 items-center py-6 justify-between px-4">
             <div>
                 <h3 className="font-semibold text-3xl mb-4">{year}</h3>
                 <ul className="list-disc list-inside">
-                    <li className="">{title}</li>
-                    <li className="">{division}</li>
-                    <li>{department}</li>
+                    <li className="text-xl">{title}</li>
+                    <li className="text-xl">{division}</li>
+                    <li className="text-xl">{department}</li>
                 </ul>
             </div>
             
-            <span className="text-red-600 text-5xl font-bold text-left font-sans">
+            <span className="text-red-600 text-5xl font-bold text-left font-mono">
                 {
                     salaryAmount.toString().includes(".") ?
                    `$${salaryAmount.toLocaleString("en-US")}` :
