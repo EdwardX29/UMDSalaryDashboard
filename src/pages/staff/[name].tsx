@@ -17,9 +17,9 @@ const StaffSalaryPage:NextPage = () => {
             <div>
             <h1 className="font-semibold text-4xl">{employeeName}</h1>
 
-            <h2 className="font-semibold text-2xl">Salary Visualization</h2>
+            <h2 className="font-semibold text-3xl my-4">Salary Visualization</h2>
 
-            <h2 className="font-semibold text-2xl">Salary History</h2>
+            <h2 className="font-semibold text-3xl my-4">Salary History</h2>
             {
 
                 salaryData && salaryData.map((salary) => (
@@ -50,11 +50,30 @@ interface salaryCardProps {
 }
 
 const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division, department, title, employeeName}) => {
+    
+    let salaryString = ""
+    console.log(salaryAmount.toString())
+    if (salaryAmount.toString().includes(".")) {
+        const numDigitsAfterDecimal = salaryAmount.toString().split(".")[1]?.length
+        if (numDigitsAfterDecimal == 2) {
+            salaryString = salaryAmount.toLocaleString("en-US")
+        }
+        else {
+            salaryString = salaryAmount.toLocaleString("en-US") + "0"
+        }
+
+    } 
+    else {
+        salaryString = salaryAmount.toLocaleString("en-US") + ".00"
+    }
+    
+    salaryString = "$" + salaryString
+
     return (
         <div key={id} 
         className="flex flex-row border-t border-gray-300 my-2 items-center py-6 justify-between px-4">
             <div>
-                <h3 className="font-semibold text-3xl mb-4">{year}</h3>
+                <h3 className="font-semibold text-2xl mb-4">{year}</h3>
                 <ul className="list-disc list-inside">
                     <li className="text-xl">{title}</li>
                     <li className="text-xl">{division}</li>
@@ -64,9 +83,10 @@ const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division,
             
             <span className="text-red-600 text-5xl font-bold text-left font-mono">
                 {
-                    salaryAmount.toString().includes(".") ?
-                   `$${salaryAmount.toLocaleString("en-US")}` :
-                   `$${salaryAmount.toLocaleString("en-US") + ".00"}`
+                //     salaryAmount.toString().includes(".") ?
+                //    `$${salaryAmount.toLocaleString("en-US")}` :
+                //    `$${salaryAmount.toLocaleString("en-US") + ".00"}`
+                salaryString
                 }
             </span>
         </div>

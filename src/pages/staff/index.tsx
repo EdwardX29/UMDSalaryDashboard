@@ -134,16 +134,9 @@ const StaffCard:React.FC<StaffCardProps> = ({name, salaries}) => {
                     ))
                 }
             </p>
-
-
-
-
         </div>
-
     )
-
 }
-
 
 
 export default StaffHome
