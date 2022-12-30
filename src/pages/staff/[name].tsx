@@ -14,12 +14,23 @@ const StaffSalaryPage:NextPage = () => {
 
     return (
         <main className="p-8">
+            <div>
             <h1 className="font-semibold text-3xl">{employeeName}</h1>
+
+            <h2 className="font-semibold text-2xl">Salary Visualization</h2>
+
+            <h2 className="font-semibold text-2xl">Salary History</h2>
             {
+
                 salaryData && salaryData.map((salary) => (
-                    <SalaryCard {...salary} />
+                    <div className="w-1/2">
+                        <SalaryCard {...salary} />
+                    </div>
                 ))
             }
+            </div>
+
+
         </main>
 
     )
@@ -43,9 +54,9 @@ interface salaryCardProps {
 const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division, department, title, employeeName}) => {
     return (
         <div key={id} 
-        className="flex flex-row border-t-2 border-gray-200 my-2 items-center py-2">
+        className="flex flex-row border-t-2 border-gray-300 my-2 items-center py-2">
             <div>
-                <h3 className="font-semibold text-3xl">{year}</h3>
+                <h3 className="font-semibold text-3xl mb-4">{year}</h3>
                 <ul className="list-disc list-inside">
                     <li className="">{title}</li>
                     <li className="">{division}</li>
