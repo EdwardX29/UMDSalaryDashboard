@@ -23,7 +23,7 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
 
     Chart.defaults.set('plugins.datalabels', {
         color: '#000000',
-        align: 225,
+        align: 270,
         anchor: "top",
         font : {
             weight : 400,
@@ -108,7 +108,7 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
                     },
                     beginAtZero: true,
                     suggestedMin: 0,
-                    suggestedMax: 1_000_000
+                    suggestedMax: 200_000
                 }
             },
             

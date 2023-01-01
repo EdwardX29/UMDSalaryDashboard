@@ -1,4 +1,6 @@
 import { NextPage } from "next";
+import Image from "next/image"
+import Head from "next/head"
 import { useRouter } from "next/router";
 import { trpc } from "../../utils/trpc";
 import SalaryLineChart from "../../../components/SalaryLineChart";
@@ -38,7 +40,16 @@ const StaffSalaryPage:NextPage = () => {
 
     if (!salaryData || salaryData.length == 0 || isLoading) {
         return (
-            <h1>{employeeName} not found</h1>
+            <>
+            <Head>
+                <title>{employeeName} not found</title>
+            </Head>
+            <main className="p-8 flex flex-col justify-center align-center items-center">
+                <h1 className="font-semibold text-3xl mb-8">{employeeName} not found</h1>
+                <Image src="/confusedterp.png" width={144} height={144} alt="confused terp" className="block"/>
+            </main>
+            </>
+            
         )
     }
 
@@ -46,6 +57,10 @@ const StaffSalaryPage:NextPage = () => {
 
 
     return (
+        <>
+        <Head>
+            <title>Salary - {employeeName}</title>
+        </Head>
         <main className="p-8">
             <div>
             <h1 className="font-semibold text-4xl">{employeeName}</h1>
@@ -67,6 +82,7 @@ const StaffSalaryPage:NextPage = () => {
            
             </div>
         </main>
+        </>
 
     )
 
