@@ -89,13 +89,13 @@ const StaffSalaryPage:NextPage = () => {
         </Head>
         <main className="p-8">
             <div>
-            <h1 className="font-semibold text-5xl">{employeeName}</h1>
+            <h1 className="text-3xl font-medium min-[400px]:text-4xl sm:text-5xl">{employeeName}</h1>
             <div className="my-12">
-                <h2 className="font-semibold text-4xl my-4">Salary Visualization</h2>
+                <h2 className="font-medium text-2xl min-[400px]:text-3xl sm:text-4xl my-4">Salary Visualization</h2>
                 <SalaryLineChart chartData={chartData} staffName={employeeName}/>
             </div>
             <div className="my-12">
-                <h2 className="font-semibold text-4xl my-4">Salary History</h2>
+                <h2 className="font-medium text-2xl min-[400px]:text-3xl sm:text-4xl my-4">Salary History</h2>
                 {
 
                     salaryData && salaryData.map((salary) => (
@@ -134,9 +134,9 @@ const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division,
         <div id={year}
         className="flex flex-col 
             sm:flex-row sm:justify-between sm:items-center sm:text-6xl
-            border-t border-gray-300 my-2 py-6 justify-between px-4">
+            border-t border-gray-300 my-2 justify-between p-12">
             <div>
-                <h3 className="font-semibold text-2xl mb-4">{year}</h3>
+                <h3 className="font-semibold text-3xl mb-4">{year}</h3>
                 <ul className="list-disc list-inside">
                     <li className="text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{title}</li>
                     <li className="text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{division}</li>
@@ -144,7 +144,7 @@ const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division,
                 </ul>
             </div>
             
-            <span className="text-red-600 font-bold text-left font-mono 
+            <span className="text-red-600 font-semibold text-left font-mono 
                             text-4xl min-[400px]:text-5xl my-2 md:text-6xl md:my-0">
                 {
                 salaryString

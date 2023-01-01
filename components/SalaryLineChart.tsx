@@ -31,9 +31,19 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
             weight : 400,
             size: 16
         },
+        // font: function(context:any) {
+        //     const width = context.chart.width;
+        //     const size = Math.round(width / 88);
+
+        //     return {
+        //         weight: 400,
+        //         size: size
+        //     };
+        // },
         formatter : function(value:any) {
             return formatSalary(value)
         },
+        display: document.documentElement.clientWidth > 600 ? true : false,
         
       })
 
@@ -47,11 +57,21 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
           options={{
             responsive: true,
             layout : {
+                // padding(ctx, options) {
+                //     const width = ctx.chart.width;
+                //     const size = Math.round(width / 64);
+                //     return {
+                //         top: size,
+                //         bottom: size,
+                //         left: size*2.2,
+                //         right: size*2.2
+                //     }
+                // },
                 padding : {
                     top: 10,
                     bottom: 10,
                     left: 50,
-                    right: 50,
+                    right: 50
                 }
             },
             elements : {
@@ -65,12 +85,15 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
             plugins: {
               title: {
                 display: true,
+                
                 text: `${staffName}'s Salary`,
                 font: {
                     size: 25,
+                    weight: "normal"
                 },
                 color: "#000000",
                 padding: 28,
+                
               },
               legend: {
                 display: false,
