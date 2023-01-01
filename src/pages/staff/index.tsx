@@ -28,7 +28,7 @@ const StaffHome:NextPage = () => {
             >   
                 <MagnifyingGlassIcon className="w-6 h-6 mr-4 hover:cursor-pointer text-gray-500"/>
                 <input type="text" name="query" className="h-6 w-64 py-4 px-1 border-2 rounded"
-                    placeholder="Search for staff"
+                    placeholder="Search for staff" autoComplete="off"
                 />
             </form>
 

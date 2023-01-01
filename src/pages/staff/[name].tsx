@@ -1,33 +1,70 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { trpc } from "../../utils/trpc";
-
+import SalaryLineChart from "../../../components/SalaryLineChart";
+import { useEffect, useState } from "react";
 
 const StaffSalaryPage:NextPage = () => {
 
     const router = useRouter()
     const employeeName = String(router.query.name)
 
-    const {data: salaryData} = 
+    const {data: salaryData, isLoading} = 
         trpc.salary.getStaffMembersSalaries
         .useQuery({employeeName: String(employeeName)})
+            
+    const [chartData, setChartData] = useState({})
+    useEffect(() => {
+        setChartData({
+           labels: salaryData?.map((data) => data.year).reverse(), 
+           datasets: [
+             {
+               label: "Salary Amount",
+               data: salaryData?.map((data) => data.salaryAmount).reverse(),
+               backgroundColor: [
+                    "#11ffbb"
+               ],
+               borderColor: "#00BB11",
+               borderWidth: 2,
+
+               
+             }
+           ],
+       })
+       
+
+    }, [salaryData])
+
+
+    if (!salaryData || salaryData.length == 0 || isLoading) {
+        return (
+            <h1>{employeeName} not found</h1>
+        )
+    }
+
+
+
 
     return (
         <main className="p-8">
             <div>
             <h1 className="font-semibold text-4xl">{employeeName}</h1>
+            <div>
+                <h2 className="font-semibold text-3xl my-4">Salary Visualization</h2>
+                <SalaryLineChart chartData={chartData} staffName={employeeName}/>
+            </div>
+            <div>
+                <h2 className="font-semibold text-3xl my-4">Salary History</h2>
+                {
 
-            <h2 className="font-semibold text-3xl my-4">Salary Visualization</h2>
-
-            <h2 className="font-semibold text-3xl my-4">Salary History</h2>
-            {
-
-                salaryData && salaryData.map((salary) => (
-                    <div className="flex flex-col">
-                        <SalaryCard {...salary} />
-                    </div>
-                ))
-            }
+                    salaryData && salaryData.map((salary) => (
+                        <div className="flex flex-col">
+                            <SalaryCard {...salary} />
+                        </div>
+                    ))
+                }
+            </div>
+           
             </div>
         </main>
 
@@ -35,8 +72,6 @@ const StaffSalaryPage:NextPage = () => {
 
 
 }
-
-
 
 
 interface salaryCardProps {
@@ -52,7 +87,6 @@ interface salaryCardProps {
 const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division, department, title, employeeName}) => {
     
     let salaryString = ""
-    console.log(salaryAmount.toString())
     if (salaryAmount.toString().includes(".")) {
         const numDigitsAfterDecimal = salaryAmount.toString().split(".")[1]?.length
         if (numDigitsAfterDecimal == 2) {
@@ -83,9 +117,6 @@ const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division,
             
             <span className="text-red-600 text-5xl font-bold text-left font-mono">
                 {
-                //     salaryAmount.toString().includes(".") ?
-                //    `$${salaryAmount.toLocaleString("en-US")}` :
-                //    `$${salaryAmount.toLocaleString("en-US") + ".00"}`
                 salaryString
                 }
             </span>
