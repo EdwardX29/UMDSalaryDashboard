@@ -12,6 +12,8 @@ import {
 } 
 from 'chart.js'
 
+import formatSalary from '../utils/formatSalary';
+
 interface SalaryLineChartProps {
     chartData: any,
     staffName: string,
@@ -22,16 +24,17 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
     Chart.register(LineElement, CategoryScale, LinearScale, PointElement, Legend, Title, Tooltip, ChartDataLabels)
 
     Chart.defaults.set('plugins.datalabels', {
-        color: '#000000',
-        align: 270,
+        color: '#004400',
+        align: 245,
         anchor: "top",
         font : {
             weight : 400,
             size: 16
         },
         formatter : function(value:any) {
-            return "$" + (value).toLocaleString("en-US")
-        }
+            return formatSalary(value)
+        },
+        
       })
 
     return (
@@ -43,13 +46,21 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
           }
           options={{
             responsive: true,
+            layout : {
+                padding : {
+                    top: 10,
+                    bottom: 10,
+                    left: 50,
+                    right: 50,
+                }
+            },
             elements : {
                 point : {
                     radius: 8,
                     hoverRadius : 12,
-                    hoverBorderWidth: 3
+                    hoverBorderWidth: 3,
                 },
-                
+                                
             },
             plugins: {
               title: {
@@ -58,7 +69,7 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
                 font: {
                     size: 25,
                 },
-                color: "#333333",
+                color: "#000000",
                 padding: 28,
               },
               legend: {
@@ -67,17 +78,17 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
               tooltip : {
                 callbacks : {
                     label(tooltipItem) {
-                        return  "Salary: $" + tooltipItem.formattedValue
+                        return " Salary: " + formatSalary(tooltipItem.formattedValue)
                     },
                 },
                 yAlign : 'bottom',
-                padding : 12,
+                padding : 8,
                 titleFont: {
                     size: 15
                 },
                 bodyFont : {
                     size: 15
-                }
+                },
               },
             
             },
@@ -90,7 +101,7 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
                             size: 22,
                             family: 'Helvetica',
                         },
-                        color: "#333333",
+                        color: "#000000",
                         padding: 2,
                     }
                 },
@@ -102,13 +113,12 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
                             size: 22,
                             family: 'Helvetica',
                         },
-                        color: "#333333",
+                        color: "#000000",
                         padding: 2,
                         
                     },
                     beginAtZero: true,
                     suggestedMin: 0,
-                    suggestedMax: 200_000
                 }
             },
             

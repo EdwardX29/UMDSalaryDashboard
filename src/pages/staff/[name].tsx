@@ -2,9 +2,12 @@ import { NextPage } from "next";
 import Image from "next/image"
 import Head from "next/head"
 import { useRouter } from "next/router";
+
 import { trpc } from "../../utils/trpc";
 import SalaryLineChart from "../../../components/SalaryLineChart";
 import { useEffect, useState } from "react";
+
+import formatSalary from "../../../utils/formatSalary";
 
 const StaffSalaryPage:NextPage = () => {
 
@@ -42,7 +45,7 @@ const StaffSalaryPage:NextPage = () => {
         return (
             <>
             <Head>
-                <title>{employeeName} not found</title>
+                <title>Employee Not found</title>
             </Head>
             <main className="p-8 flex flex-col justify-center align-center items-center">
                 <h1 className="font-semibold text-3xl mb-8">{employeeName} not found</h1>
@@ -102,25 +105,10 @@ interface salaryCardProps {
 
 const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division, department, title, employeeName}) => {
     
-    let salaryString = ""
-    if (salaryAmount.toString().includes(".")) {
-        const numDigitsAfterDecimal = salaryAmount.toString().split(".")[1]?.length
-        if (numDigitsAfterDecimal == 2) {
-            salaryString = salaryAmount.toLocaleString("en-US")
-        }
-        else {
-            salaryString = salaryAmount.toLocaleString("en-US") + "0"
-        }
-
-    } 
-    else {
-        salaryString = salaryAmount.toLocaleString("en-US") + ".00"
-    }
-    
-    salaryString = "$" + salaryString
+    const salaryString = formatSalary(salaryAmount)
 
     return (
-        <div key={id} 
+        <div key={id} id={year}
         className="flex flex-row border-t border-gray-300 my-2 items-center py-6 justify-between px-4">
             <div>
                 <h3 className="font-semibold text-2xl mb-4">{year}</h3>
