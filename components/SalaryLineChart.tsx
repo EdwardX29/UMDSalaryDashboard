@@ -24,8 +24,8 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
     Chart.register(LineElement, CategoryScale, LinearScale, PointElement, Legend, Title, Tooltip, ChartDataLabels)
 
     Chart.defaults.set('plugins.datalabels', {
-        color: '#004400',
-        align: 245,
+        color: '#000000',
+        align: 270,
         anchor: "top",
         font : {
             weight : 400,
@@ -81,7 +81,7 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
                         return " Salary: " + formatSalary(tooltipItem.formattedValue)
                     },
                 },
-                yAlign : 'bottom',
+                yAlign : 'top',
                 padding : 8,
                 titleFont: {
                     size: 15

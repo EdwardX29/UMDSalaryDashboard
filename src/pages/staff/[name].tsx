@@ -48,9 +48,11 @@ const StaffSalaryPage:NextPage = () => {
                label: "Salary Amount",
                data: salaries,
                backgroundColor: [
-                    "#11ffbb"
+                    // "#11ffbb"
+                    "rgb(239 68 68 / 1)"
                ],
-               borderColor: "#00BB11",
+            //    borderColor: "#00BB11",
+               borderColor: "rgb(220 38 38 / 1",
                borderWidth: 2,
 
                
@@ -130,17 +132,20 @@ const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division,
         <div className="flex flex-col">
 
         <div id={year}
-        className="flex flex-row border-t border-gray-300 my-2 items-center py-6 justify-between px-4">
+        className="flex flex-col 
+            sm:flex-row sm:justify-between sm:items-center sm:text-6xl
+            border-t border-gray-300 my-2 py-6 justify-between px-4">
             <div>
                 <h3 className="font-semibold text-2xl mb-4">{year}</h3>
                 <ul className="list-disc list-inside">
-                    <li className="text-xl">{title}</li>
-                    <li className="text-xl">{division}</li>
-                    <li className="text-xl">{department}</li>
+                    <li className="text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{title}</li>
+                    <li className="text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{division}</li>
+                    <li className="text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{department}</li>
                 </ul>
             </div>
             
-            <span className="text-red-600 text-5xl font-bold text-left font-mono">
+            <span className="text-red-600 font-bold text-left font-mono 
+                            text-4xl min-[400px]:text-5xl my-2 md:text-6xl md:my-0">
                 {
                 salaryString
                 }
