@@ -1,4 +1,5 @@
 import { NextPage } from "next"
+import Head from "next/head"
 import Link from "next/link"
 import {FormEvent, useState, useEffect} from "react"
 import { trpc } from "../../utils/trpc"
@@ -21,6 +22,11 @@ const StaffHome:NextPage = () => {
         staffMemberRefetch()
     }
     return (
+        <>
+        <Head>
+            <title>Salary Guide</title>
+        </Head>
+
         <main className="p-8">
             <form
                 onSubmit={(e) => searchForStaff(e)}
@@ -33,19 +39,26 @@ const StaffHome:NextPage = () => {
             </form>
 
             <ul>
+                {
+                query !== "" && 
+                <>
                 <h2 className="text-xl font-medium">
                     Search results for {" "}
                     <strong className="text-red-600 font-semibold text-2xl">"{query}"</strong>
                 </h2>
+                <h2>
+                    {staffMembers?.length} results
+                </h2>
+                </>
+                }
                 {
                     staffMembers && staffMembers.map((member) => (
-                        <StaffCard {...member} />
+                        <StaffCard {...member} key={member.name}/>
                     ))
                 }
-
             </ul>
-
         </main>
+        </>
     )
 }
 

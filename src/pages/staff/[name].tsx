@@ -20,12 +20,33 @@ const StaffSalaryPage:NextPage = () => {
             
     const [chartData, setChartData] = useState({})
     useEffect(() => {
+        const years = salaryData?.map((data) => data.year).reverse()
+        const salaries = salaryData?.map((data) => data.salaryAmount).reverse()
+
+        let replaceIndex = 1
+        if (years != undefined && salaries != undefined) {
+            for (let i = 1; years && i < years.length; i++) {
+                
+                if (years[i] == years[i-1]) {
+                    salaries[i-1] = salaries[i-1] + salaries[i]
+                }
+                else {
+                    years[replaceIndex] = years[i]
+                    salaries[replaceIndex] = salaries[i]
+                    replaceIndex++;
+                }
+
+            }
+        }
+        years?.splice(replaceIndex, years.length - replaceIndex)
+        salaries?.splice(replaceIndex, salaries.length - replaceIndex)
+
         setChartData({
-           labels: salaryData?.map((data) => data.year).reverse(), 
+           labels: years,
            datasets: [
              {
                label: "Salary Amount",
-               data: salaryData?.map((data) => data.salaryAmount).reverse(),
+               data: salaries,
                backgroundColor: [
                     "#11ffbb"
                ],
@@ -66,19 +87,17 @@ const StaffSalaryPage:NextPage = () => {
         </Head>
         <main className="p-8">
             <div>
-            <h1 className="font-semibold text-4xl">{employeeName}</h1>
-            <div>
-                <h2 className="font-semibold text-3xl my-4">Salary Visualization</h2>
+            <h1 className="font-semibold text-5xl">{employeeName}</h1>
+            <div className="my-12">
+                <h2 className="font-semibold text-4xl my-4">Salary Visualization</h2>
                 <SalaryLineChart chartData={chartData} staffName={employeeName}/>
             </div>
-            <div>
-                <h2 className="font-semibold text-3xl my-4">Salary History</h2>
+            <div className="my-12">
+                <h2 className="font-semibold text-4xl my-4">Salary History</h2>
                 {
 
                     salaryData && salaryData.map((salary) => (
-                        <div className="flex flex-col">
-                            <SalaryCard {...salary} />
-                        </div>
+                            <SalaryCard {...salary} key={salary.id}/>
                     ))
                 }
             </div>
@@ -108,7 +127,9 @@ const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division,
     const salaryString = formatSalary(salaryAmount)
 
     return (
-        <div key={id} id={year}
+        <div className="flex flex-col">
+
+        <div id={year}
         className="flex flex-row border-t border-gray-300 my-2 items-center py-6 justify-between px-4">
             <div>
                 <h3 className="font-semibold text-2xl mb-4">{year}</h3>
@@ -124,6 +145,7 @@ const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division,
                 salaryString
                 }
             </span>
+        </div>
         </div>
     )
 }
