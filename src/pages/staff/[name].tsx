@@ -72,15 +72,12 @@ const StaffSalaryPage:NextPage = () => {
             </Head>
             <main className="p-8 flex flex-col justify-center align-center items-center">
                 <h1 className="font-semibold text-3xl mb-8">{employeeName} not found</h1>
-                <Image src="/confusedterp.png" width={144} height={144} alt="confused terp" className="block"/>
+                <Image priority={true} src="/confusedterp.png" width={144} height={144} alt="confused terp" className="block"/>
             </main>
             </>
             
         )
     }
-
-
-
 
     return (
         <>

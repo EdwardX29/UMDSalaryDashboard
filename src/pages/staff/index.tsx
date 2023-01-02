@@ -1,7 +1,7 @@
 import { NextPage } from "next"
 import Head from "next/head"
 import Link from "next/link"
-import {FormEvent, useState, useEffect} from "react"
+import { FormEvent, useState } from "react"
 import { trpc } from "../../utils/trpc"
 import {MagnifyingGlassIcon} from '@heroicons/react/24/outline'
 
@@ -24,16 +24,20 @@ const StaffHome:NextPage = () => {
     return (
         <>
         <Head>
-            <title>Salary Guide</title>
+            <title>UMD Salary Guide | Staff</title>
         </Head>
 
         <main className="p-8">
+
+            <h1 className="font-semibold text-3xl">Seach by staff member</h1>
+
             <form
                 onSubmit={(e) => searchForStaff(e)}
                 className="flex flex-row items-center my-4"
             >   
                 <MagnifyingGlassIcon className="w-6 h-6 mr-4 hover:cursor-pointer text-gray-500"/>
-                <input type="text" name="query" className="h-6 w-64 py-4 px-1 border-2 rounded"
+                <input type="text" name="query" 
+                    className="h-6 w-64 py-4 px-2 border-2 rounded border-black focus:outline-none"
                     placeholder="Search for staff" autoComplete="off"
                 />
             </form>
@@ -94,9 +98,9 @@ const StaffCard:React.FC<StaffCardProps> = ({name, salaries}) => {
     const titles = Array.from(titleSet)
 
     return (
-        <div className="my-2 border rounded">
+        <div className="my-2 border-t p-4 rounded mt-12">
             <Link href={`/staff/${name}/`} 
-                className="text-red-500 text-lg font-semibold hover:text-red-700"
+                className="text-red-500 mb-4 inline-block text-2xl font-semibold hover:text-red-700 hover:underline"
                 target="_blank"
             >
                 {name}
@@ -106,7 +110,7 @@ const StaffCard:React.FC<StaffCardProps> = ({name, salaries}) => {
                 {
                     titles.map((title, i) => (
                         (
-                        i + 1!= titles.length ? 
+                        i + 1 != titles.length ? 
                         <>{" " + title},</> :
                         <>{" " + title}</>
                         )

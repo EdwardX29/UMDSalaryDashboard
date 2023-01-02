@@ -51,8 +51,72 @@ const salariesRouter = router({
             })
 
             return result.filter((v,i,a)=>a.findIndex(v2=>(v2.salaryAmount===v.salaryAmount && v2.year === v.year))===i)
-        })
+        }),
 
+    getSalary: publicProcedure
+        .input(z.object({
+            searchQuery: z.string(), 
+            ascending: z.string(), 
+            yearQuery: z.string(),
+            sortBy: z.string()
+        }))
+        .query(async ({ctx, input}) => {
+            const ascendingString = input.ascending === "Ascending" ? "asc" : "desc"
+
+            const results = await ctx.prisma.salary.findMany({
+                where : {
+                    year: input.yearQuery,
+                    OR: [
+                        {
+                            employeeName: {
+                                contains : input.searchQuery
+                            }
+                        },
+                        {
+                            division: {
+                                contains : input.searchQuery
+                            }
+                        },
+                        {
+                            department: {
+                                contains : input.searchQuery
+                            }
+                        }
+                    ]
+                },
+                orderBy : [
+                    input.sortBy === "Salary" ? 
+                    {
+                        salaryAmount : ascendingString
+                    } 
+                    :
+                    input.sortBy === "Employee"
+                    ?
+                    {
+                        employeeName : ascendingString
+                    }
+                    :
+                    input.sortBy === "Title"
+                    ?
+                    {
+                        title: ascendingString
+                    }
+                    :
+                    input.sortBy === "Division"
+                    ?
+                    {
+                        division: ascendingString,
+                    }
+                    :
+                    {
+                        department: ascendingString
+                    }
+                ]
+            })
+
+            return results
+
+        }) 
 
 })
 

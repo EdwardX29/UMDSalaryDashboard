@@ -9,10 +9,12 @@ import {
     Legend,
     Title,
     Tooltip,
+    InteractionItem,
 } 
 from 'chart.js'
 
 import formatSalary from '../utils/formatSalary';
+import { useRef } from 'react';
 
 interface SalaryLineChartProps {
     chartData: any,
@@ -24,6 +26,9 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
     Chart.register(LineElement, CategoryScale, LinearScale, PointElement, Legend, Title, Tooltip, ChartDataLabels)
 
     Chart.defaults.set('plugins.datalabels', {
+        onclick: function(e:any) {
+            console.log(e)
+        },
         color: '#000000',
         align: 270,
         anchor: "top",
@@ -43,10 +48,11 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
         formatter : function(value:any) {
             return formatSalary(value)
         },
-        display: document.documentElement.clientWidth > 600 ? true : false,
+        display: true,
         
       })
 
+      
     return (
         <div className="chart-container">
         <Line
@@ -80,7 +86,6 @@ const SalaryLineChart = ({chartData, staffName}: SalaryLineChartProps) => {
                     hoverRadius : 12,
                     hoverBorderWidth: 3,
                 },
-                                
             },
             plugins: {
               title: {
