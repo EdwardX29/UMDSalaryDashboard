@@ -45,13 +45,19 @@ const Search = () => {
                 <form 
                 onSubmit={(e) => searchForSalary(e)}
                 className="flex flex-col my-4">
-                    <div className="flex flex-row items-center">
-                        <MagnifyingGlassIcon className="w-6 h-6 mr-4 hover:cursor-pointer text-gray-500"/>
-                        <input type="text" name="query" 
-                        className="h-6 w-50 sm:w-64 py-4 px-2 border-2 rounded border-black focus:outline-none"
-                        placeholder="Make a search..." autoComplete="off"
+                    <div className="flex flex-row items-center flex-wrap sm:justify-start justify-center">
+                        <div className="flex flex-row items-center">
+                            <MagnifyingGlassIcon className="w-6 h-6 mr-4 hover:cursor-pointer text-gray-500"/>
+                            <input type="text" name="query" 
+                            className="h-6 w-50 sm:w-64 py-4 px-2 border-2 rounded border-black focus:outline-none"
+                            placeholder="Make a search..." autoComplete="off"
+                            />
+                        </div>
+                        
+                        <input type="submit" value="Search" 
+                        className="ml-4 mt-2 p-2 bg-red-600 text-white 
+                                    min-[384px]:mt-0 rounded-lg hover:bg-red-700"
                         />
-                        <input type="submit" value="Search" className="ml-4 p-2 bg-red-600 text-white rounded-lg hover:bg-red-700"/>
 
                     </div>
                     <div className="my-4 p-4 sm:w-[50vw] md:w-[35vw]">
