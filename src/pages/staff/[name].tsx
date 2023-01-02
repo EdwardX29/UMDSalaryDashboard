@@ -48,10 +48,8 @@ const StaffSalaryPage:NextPage = () => {
                label: "Salary Amount",
                data: salaries,
                backgroundColor: [
-                    // "#11ffbb"
                     "rgb(239 68 68 / 1)"
                ],
-            //    borderColor: "#00BB11",
                borderColor: "rgb(220 38 38 / 1",
                borderWidth: 2,
 
@@ -96,7 +94,7 @@ const StaffSalaryPage:NextPage = () => {
                 {
 
                     salaryData && salaryData.map((salary) => (
-                            <SalaryCard {...salary} key={salary.id}/>
+                            <EmployeeCard {...salary} key={salary.id}/>
                     ))
                 }
             </div>
@@ -111,7 +109,7 @@ const StaffSalaryPage:NextPage = () => {
 }
 
 
-interface salaryCardProps {
+interface EmployeeCardProps {
     id: string; 
     year: string; 
     salaryAmount: number; 
@@ -121,7 +119,7 @@ interface salaryCardProps {
     employeeName: string;
 }
 
-const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division, department, title, employeeName}) => {
+const EmployeeCard:React.FC<EmployeeCardProps> = ({id, year, salaryAmount, division, department, title, employeeName}) => {
     
     const salaryString = formatSalary(salaryAmount)
 
@@ -135,9 +133,9 @@ const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division,
             <div>
                 <h3 className="font-semibold text-3xl mb-4">{year}</h3>
                 <ul className="list-disc list-inside">
-                    <li className="text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{title}</li>
-                    <li className="text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{division}</li>
-                    <li className="text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{department}</li>
+                    <li className="text-gray-600 text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{title}</li>
+                    <li className="text-gray-600 text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{division}</li>
+                    <li className="text-gray-600 text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{department}</li>
                 </ul>
             </div>
             
@@ -151,5 +149,7 @@ const SalaryCard:React.FC<salaryCardProps> = ({id, year, salaryAmount, division,
         </div>
     )
 }
+
+
 
 export default StaffSalaryPage

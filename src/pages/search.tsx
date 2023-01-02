@@ -2,15 +2,17 @@ import Head from "next/head"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { FormEvent, useState } from "react"
 import { trpc } from "../utils/trpc"
+import formatSalary from "../../utils/formatSalary"
+import Link from "next/link"
 
 const Search = () => {
 
-    const [query, setQuery] = useState("Computer Science")
-    const [ascendingState, setAscending] = useState("Ascending")
+    const [query, setQuery] = useState("")
+    const [ascendingState, setAscending] = useState("Descending")
     const [yearState, setYearState] = useState("2022")
     const [sortByState, setSortBy] = useState("Salary")
 
-    const {data: salaries, refetch: salaryRefetch} = trpc.salary.getSalary.useQuery({
+    const {data: salaries, refetch: salaryRefetch, isLoading:salariesLoading} = trpc.salary.getSalary.useQuery({
         searchQuery: query, ascending: ascendingState, yearQuery: yearState, sortBy: sortByState
     })
 
@@ -18,7 +20,13 @@ const Search = () => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const salaryQuery = String(formData.get("query"))
+        const yearQuery = String(formData.get("yearQuery"))
+        const orderQuery = String(formData.get("orderQuery"))
+        const sortQuery = String(formData.get("sortQuery"))
         setQuery(salaryQuery)
+        setYearState(yearQuery)
+        setAscending(orderQuery)
+        setSortBy(sortQuery)
         salaryRefetch()
     } 
 
@@ -43,23 +51,14 @@ const Search = () => {
                         className="h-6 w-64 py-4 px-2 border-2 rounded border-black focus:outline-none"
                         placeholder="Make a search..." autoComplete="off"
                         />
+                        <input type="submit" value="Search" className="ml-8 p-2 bg-red-600 text-white rounded-lg hover:bg-red-700"/>
+
                     </div>
-                    <div className="my-4">
-                        <div>
-                            <label>Order:</label>
+                    <div className="my-4 p-4 w-[25vw]">
+                        <div className="flex flex-row justify-between">
+                            <label className="text-red-500">Year:</label>
                             <select
-                                value={ascendingState}
-                                onChange={(e) => setAscending(e.target.value)}
-                            >
-                                <option>Ascending</option>
-                                <option>Descending</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Year:</label>
-                            <select
-                                value={yearState}
-                                onChange={(e) => setYearState(e.target.value)}
+                                name="yearQuery"
                             >
                                 <option>2022</option>
                                 <option>2021</option>
@@ -73,11 +72,20 @@ const Search = () => {
                                 <option>2013</option>
                             </select>
                         </div>
-                        <div>
-                            <label>Sort by:</label>
+                        <div className="flex flex-row justify-between">
+                            <label className="text-red-500">Order:</label>
                             <select
-                                value={sortByState}
-                                onChange={(e) => setSortBy(e.target.value)}
+                                name="orderQuery"
+                            >
+                                <option>Descending</option>
+                                <option>Ascending</option>
+                            </select>
+                        </div>
+
+                        <div className="flex flex-row justify-between">
+                            <label className="text-red-500">Sort by:</label>
+                            <select
+                                name="sortQuery"
                             >
                                 <option>Salary</option>
                                 <option>Employee</option>
@@ -87,14 +95,63 @@ const Search = () => {
                             </select>
                         </div>
                     </div>
+
+
                 </form>
                 <ul>
-                    {JSON.stringify(salaries)}
+                    {salariesLoading ? <span className="text-xl">Loading results 🐢...</span>
+                    :
+                    salaries?.map((salary) => (
+                        <SalaryCard {...salary} />
+                    ))}
                 </ul>
 
             </main>
         </>
     )
+}
+
+
+interface SalaryCardProps  {
+    id: string,
+    year: string,
+    salaryAmount: number,
+    division: string,
+    department: string,
+    title: string,
+    employeeName: string,
+}
+
+const SalaryCard:React.FC<SalaryCardProps> = ({id, year, salaryAmount, division, department, title, employeeName}) => {
+    
+    const salaryString = formatSalary(salaryAmount)
+    
+    return (
+        <div className="flex flex-col">
+        <div id={employeeName}
+        className="flex flex-col 
+            sm:flex-row sm:justify-between sm:items-center sm:text-6xl
+            border-t border-gray-300 my-2 justify-between p-12">
+            <div>
+                <Link href={`/staff/${employeeName}`} className="block font-semibold text-3xl mb-4 text-red-600 hover:text-red-700 hover:underline">{employeeName}</Link>
+                <ul className="list-disc list-inside">
+                    <li className="text-gray-600 text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{title}</li>
+                    <li className="text-gray-600 text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{division}</li>
+                    <li className="text-gray-600 text-md min-[320px]:text-lg min-[400px]:text-xl sm:text-lg md:text-xl">{department}</li>
+                </ul>
+            </div>
+            
+            <span className="text-red-600 font-semibold text-left font-mono 
+                            text-4xl min-[400px]:text-5xl my-2 md:text-6xl md:my-0">
+                {
+                salaryString
+                }
+            </span>
+        </div>
+        </div>
+        
+    )
+
 }
 
 export default Search
