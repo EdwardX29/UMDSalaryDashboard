@@ -48,13 +48,13 @@ const Search = () => {
                     <div className="flex flex-row items-center">
                         <MagnifyingGlassIcon className="w-6 h-6 mr-4 hover:cursor-pointer text-gray-500"/>
                         <input type="text" name="query" 
-                        className="h-6 w-64 py-4 px-2 border-2 rounded border-black focus:outline-none"
+                        className="h-6 w-50 sm:w-64 py-4 px-2 border-2 rounded border-black focus:outline-none"
                         placeholder="Make a search..." autoComplete="off"
                         />
-                        <input type="submit" value="Search" className="ml-8 p-2 bg-red-600 text-white rounded-lg hover:bg-red-700"/>
+                        <input type="submit" value="Search" className="ml-4 p-2 bg-red-600 text-white rounded-lg hover:bg-red-700"/>
 
                     </div>
-                    <div className="my-4 p-4 w-[25vw]">
+                    <div className="my-4 p-4 sm:w-[50vw] md:w-[35vw]">
                         <div className="flex flex-row justify-between">
                             <label className="text-red-500">Year:</label>
                             <select
@@ -130,8 +130,8 @@ const SalaryCard:React.FC<SalaryCardProps> = ({id, year, salaryAmount, division,
         <div className="flex flex-col">
         <div id={employeeName}
         className="flex flex-col 
-            sm:flex-row sm:justify-between sm:items-center sm:text-6xl
-            border-t border-gray-300 my-2 justify-between p-12">
+            sm:flex-row sm:justify-between sm:items-center sm:text-6xl sm:p-8 md:p-12
+            border-t border-gray-300 my-2 justify-between py-4">
             <div>
                 <Link href={`/staff/${employeeName}`} className="block font-semibold text-3xl mb-4 text-red-600 hover:text-red-700 hover:underline">{employeeName}</Link>
                 <ul className="list-disc list-inside">

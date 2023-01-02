@@ -128,8 +128,8 @@ const EmployeeCard:React.FC<EmployeeCardProps> = ({id, year, salaryAmount, divis
 
         <div id={year}
         className="flex flex-col 
-            sm:flex-row sm:justify-between sm:items-center sm:text-6xl
-            border-t border-gray-300 my-2 justify-between p-12">
+            sm:flex-row sm:justify-between sm:items-center sm:text-6xl sm:p-8 md:p-12
+            border-t border-gray-300 my-2 justify-between py-4">
             <div>
                 <h3 className="font-semibold text-3xl mb-4">{year}</h3>
                 <ul className="list-disc list-inside">
