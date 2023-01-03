@@ -20,19 +20,22 @@ const StaffSalaryPage:NextPage = () => {
             
     const [chartData, setChartData] = useState({})
     useEffect(() => {
-        const years = salaryData?.map((data) => data.year).reverse()
-        const salaries = salaryData?.map((data) => data.salaryAmount).reverse()
 
+        const x = [1,2,3]
+        x[1] = x[1] ?? 0
+
+        const years: string[] | undefined = salaryData?.map((data) => data.year).reverse()
+        const salaries: number[] | undefined = salaryData?.map((data) => data.salaryAmount).reverse()
         let replaceIndex = 1
-        if (years != undefined && salaries != undefined) {
+        if (years !== undefined && salaries !== undefined) {
             for (let i = 1; years && i < years.length; i++) {
                 
-                if (years[i] == years[i-1]) {
-                    salaries[i-1] = salaries[i-1] + salaries[i]
+                if (years[i] == years[i-1] && i <= salaries.length - 1) {
+                    salaries[i-1] = (salaries[i-1] ?? 0) + (salaries[i] ?? 0)
                 }
                 else {
-                    years[replaceIndex] = years[i]
-                    salaries[replaceIndex] = salaries[i]
+                    years[replaceIndex] = years[i] ?? ""
+                    salaries[replaceIndex] = salaries[i] ?? 0
                     replaceIndex++;
                 }
 
