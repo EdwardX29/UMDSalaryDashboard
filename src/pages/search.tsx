@@ -133,8 +133,8 @@ const SalaryCard:React.FC<SalaryCardProps> = ({id, year, salaryAmount, division,
     const salaryString = formatSalary(salaryAmount)
     
     return (
-        <div className="flex flex-col">
-        <div id={employeeName}
+        <div className="flex flex-col" key={id + year}>
+        <div
         className="flex flex-col 
             sm:flex-row sm:justify-between sm:items-center sm:text-6xl sm:p-8 md:p-12
             border-t border-gray-300 my-2 justify-between py-4">

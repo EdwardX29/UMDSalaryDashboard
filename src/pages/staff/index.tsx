@@ -48,7 +48,7 @@ const StaffHome:NextPage = () => {
                 <>
                 <h2 className="text-xl font-medium">
                     Search results for {" "}
-                    <strong className="text-red-600 font-semibold text-2xl">"{query}"</strong>
+                    <strong className="text-red-600 font-semibold text-2xl">&quot;{query}&quot;</strong>
                 </h2>
                 <h2>
                     {staffMembers?.length} results

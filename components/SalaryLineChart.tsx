@@ -9,12 +9,10 @@ import {
     Legend,
     Title,
     Tooltip,
-    InteractionItem,
 } 
 from 'chart.js'
 
 import formatSalary from '../utils/formatSalary';
-import { useRef } from 'react';
 
 interface SalaryLineChartProps {
     chartData: any,
