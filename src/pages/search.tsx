@@ -108,7 +108,7 @@ const Search = () => {
                     {salariesLoading ? <span className="text-xl">Loading results 🐢...</span>
                     :
                     salaries?.map((salary) => (
-                        <SalaryCard {...salary} />
+                        <SalaryCard {...salary} key={salary.id}/>
                     ))}
                 </ul>
 
