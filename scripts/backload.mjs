@@ -3,6 +3,8 @@ import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
+async function main() {
+
 const years = [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
 
 
@@ -40,6 +42,16 @@ for (let i = 0; i < years.length; i++) {
     } 
 }
 
+}
 
 
 
+main()
+  .then(async () => {
+    await prisma.$disconnect()
+  })
+  .catch(async (e) => {
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })
