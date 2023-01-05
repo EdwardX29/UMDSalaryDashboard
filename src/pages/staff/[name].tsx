@@ -65,7 +65,13 @@ const StaffSalaryPage:NextPage = () => {
     }, [salaryData])
 
 
-    if (!salaryData || salaryData.length == 0 || isLoading) {
+    if (isLoading) {
+        return (
+            <h1>Loading...</h1>
+        )
+    }
+
+    if (!salaryData || salaryData.length == 0) {
         return (
             <>
             <Head>
@@ -79,6 +85,8 @@ const StaffSalaryPage:NextPage = () => {
             
         )
     }
+
+
 
     return (
         <>
