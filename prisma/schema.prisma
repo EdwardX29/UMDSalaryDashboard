@@ -12,20 +12,20 @@ datasource db {
 }
 
 model Employee{
-  id        String @id @default(cuid())
-  name      String @unique
+  id        String @id @default(cuid()) @db.Text	
+  name      String @unique @db.Text	
 	salaries  Salary[]
 }
 
 model Salary {
 
-  id            String @id @default(cuid())
-  year          String
+  id            String @id @default(cuid()) @db.Text	
+  year          String @db.Text	
   salaryAmount  Float
-  division      String
-  department    String
-  title         String
-  employeeName  String
+  division      String @db.Text	
+  department    String @db.Text	
+  title         String @db.Text	
+  employeeName  String @db.Text	
   employee      Employee @relation(fields: [employeeName], references: [name], onDelete: Cascade)
 
 }
