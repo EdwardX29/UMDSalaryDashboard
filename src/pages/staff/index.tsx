@@ -51,7 +51,7 @@ const StaffHome:NextPage = () => {
                     <strong className="text-red-600 font-semibold text-2xl">&quot;{query}&quot;</strong>
                 </h2>
                 <h2>
-                    {staffMembers?.length} results
+                    {staffMembers && staffMembers.length + " results"} 
                 </h2>
                 </>
                 }
