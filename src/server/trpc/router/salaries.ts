@@ -15,7 +15,8 @@ const salariesRouter = router({
                     ],
                     where : {
                         name: {
-                            contains: input.nameQuery
+                            contains: input.nameQuery,
+                            mode : 'insensitive'
                         },
                     },
                     select : {
@@ -46,7 +47,7 @@ const salariesRouter = router({
                     }
                 ],
                 where : {
-                    employeeName : input.employeeName
+                    employeeName : input.employeeName,
                 },
             })
 
@@ -69,17 +70,23 @@ const salariesRouter = router({
                     OR: [
                         {
                             employeeName: {
-                                contains : input.searchQuery
+                                contains : input.searchQuery,
+                                mode : 'insensitive'
+
                             }
                         },
                         {
                             division: {
-                                contains : input.searchQuery
+                                contains : input.searchQuery,
+                                mode : 'insensitive'
+
                             }
                         },
                         {
                             department: {
-                                contains : input.searchQuery
+                                contains : input.searchQuery,
+                                mode : 'insensitive'
+
                             }
                         }
                     ]
